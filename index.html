@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Benevolence Inc – Apps for Everyone</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0f1e;
+      --bg2: #111827;
+      --card: #161d30;
+      --accent: #4ade80;
+      --accent2: #22d3ee;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: rgba(255,255,255,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── BG GLOW ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 0%, rgba(74,222,128,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 100%, rgba(34,211,238,0.07) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 2rem;
+      background: rgba(10,15,30,0.8);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(74,222,128,0.1);
+      border: 1px solid rgba(74,222,128,0.25);
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; animation: pulse 2s infinite; }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.6rem, 7vw, 5rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      margin-top: 1.5rem;
+      max-width: 500px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      font-weight: 300;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0f1e;
+      font-weight: 700;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,222,128,0.3); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { background: var(--card); }
+
+    /* ── SECTIONS ── */
+    section { position: relative; z-index: 1; padding: 5rem 2rem; }
+    .container { max-width: 1080px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .section-intro { color: var(--muted); max-width: 480px; margin-bottom: 3rem; }
+
+    /* ── APPS GRID ── */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .app-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2rem;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .app-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(74,222,128,0.04), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .app-card:hover { transform: translateY(-4px); border-color: rgba(74,222,128,0.2); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+    .app-card:hover::before { opacity: 1; }
+
+    .app-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+    }
+    .app-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+    .app-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
+    .app-badge {
+      display: inline-block;
+      background: rgba(74,222,128,0.1);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 0.2rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .play-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin-top: 1rem;
+      color: var(--accent2);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .play-link:hover { text-decoration: underline; }
+
+    /* ── PRIVACY SECTION ── */
+    #privacy { background: var(--bg2); }
+    .privacy-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2.5rem;
+    }
+    .privacy-block { margin-bottom: 2rem; }
+    .privacy-block:last-child { margin-bottom: 0; }
+    .privacy-block h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .privacy-block p { color: var(--muted); font-size: 0.95rem; line-height: 1.75; }
+    .privacy-block a { color: var(--accent2); }
+
+    /* ── CONTACT ── */
+    .contact-card {
+      background: linear-gradient(135deg, rgba(74,222,128,0.08), rgba(34,211,238,0.05));
+      border: 1px solid rgba(74,222,128,0.15);
+      border-radius: 18px;
+      padding: 3rem;
+      text-align: center;
+    }
+    .contact-card h2 { margin-bottom: 0.5rem; }
+    .contact-card p { color: var(--muted); margin-bottom: 2rem; }
+    .contact-email {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 1.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .contact-email:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(74,222,128,0.15); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      section { padding: 3.5rem 1.25rem; }
+      .privacy-card, .contact-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#home" class="nav-logo">Benevolence Inc</a>
+    <ul class="nav-links">
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#privacy">Privacy</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-badge"><span></span> Trusted Android Apps</div>
+    <h1>Apps Built With<br/><em>Benevolence</em></h1>
+    <p class="hero-sub">Simple, useful, and family-friendly Android apps. Free to use, built for everyone.</p>
+    <div class="hero-cta">
+      <a href="#apps" class="btn btn-primary">View Our Apps</a>
+      <a href="#privacy" class="btn btn-ghost">Privacy Policy</a>
+    </div>
+  </section>
+
+  <!-- APPS -->
+  <section id="apps">
+    <div class="container">
+      <p class="section-label">Our Apps</p>
+      <h2>Available on Google Play</h2>
+      <p class="section-intro">All our apps are free, ad-supported, and designed with children and families in mind.</p>
+
+      <div class="apps-grid">
+
+        <!-- Add your real apps below. Duplicate the app-card block for each app. -->
+
+        <div class="app-card">
+          <div class="app-icon">🎙️</div>
+          <div class="app-name">Your App Name</div>
+          <p class="app-desc">A short description of what your app does. Replace this with your real app details.</p>
+          <span class="app-badge">Free</span><br/>
+          <a href="https://play.google.com/store/apps/developer?id=Benevolence+Inc" class="play-link" target="_blank">
+            ↗ View on Google Play
+          </a>
+        </div>
+
+        <div class="app-card">
+          <div class="app-icon">🧒</div>
+          <div class="app-name">Kids Friendly App</div>
+          <p class="app-desc">Child-safe, COPPA compliant. Non-personalized ads for users under 13.</p>
+          <span class="app-badge">Family</span><br/>
+          <a href="https://play.google.com/store/apps/developer?id=Benevolence+Inc" class="play-link" target="_blank">
+            ↗ View on Google Play
+          </a>
+        </div>
+
+        <div class="app-card">
+          <div class="app-icon">⭐</div>
+          <div class="app-name">Add More Apps</div>
+          <p class="app-desc">Copy the app-card block above and fill in your real app names and Play Store links.</p>
+          <span class="app-badge">Coming Soon</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section id="privacy">
+    <div class="container">
+      <p class="section-label">Legal</p>
+      <h2>Privacy Policy</h2>
+      <p class="section-intro">Last updated: July 2025. Applies to all Benevolence Inc apps.</p>
+
+      <div class="privacy-card">
+
+        <div class="privacy-block">
+          <h3>📢 Advertisement Privacy</h3>
+          <p>This application uses Google Ad Services (AdMob) to display advertisements. We do not collect or store any personal data directly. However, as a third-party provider, Google may collect certain information to deliver relevant ads. For users under the age of 13, advertisements are configured to be child-friendly and non-personalized in accordance with the Children's Online Privacy Protection Act (COPPA) and Google Play Families Policy. This means ads are based solely on general app content and not on personal data.</p>
+        </div>
+
+        <div class="privacy-block">
+          <h3>🎙️ Microphone Permission</h3>
+          <p>Our app may request access to your device's microphone to enable features such as voice input or speech-to-text functionality. This permission is used only while you are actively using these features. We do not record, store, or share any audio data. Any voice input is processed in real-time and is not retained after use. The microphone is never accessed in the background without your knowledge. You can control or revoke microphone access at any time through your device settings.</p>
+        </div>
+
+        <div class="privacy-block">
+          <h3>👶 Children's Privacy</h3>
+          <p>Our app is intended for a general audience and may be accessed by children under 13. We do not knowingly collect personal information from children. If we become aware that a child under 13 has submitted personal data, we will promptly delete such information. Parents or guardians may contact us at <a href="mailto:benevolenceincindia@gmail.com">benevolenceincindia@gmail.com</a> to review or request deletion of any information their child may have provided.</p>
+        </div>
+
+        <div class="privacy-block">
+          <h3>📧 Contact Us</h3>
+          <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:benevolenceincindia@gmail.com">benevolenceincindia@gmail.com</a>.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-card">
+        <h2>Get In Touch</h2>
+        <p>Questions about our apps or privacy policy? We'd love to hear from you.</p>
+        <a href="mailto:benevolenceincindia@gmail.com" class="contact-email">
+          ✉️ benevolenceincindia@gmail.com
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Benevolence Inc · <a href="#privacy">Privacy Policy</a> · Made with ❤️ in India</p>
+  </footer>
+
+</body>
+</html>
