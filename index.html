@@ -87,7 +87,6 @@
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(135deg, rgba(74,222,128,0.04), transparent 60%);
       opacity: 0; transition: opacity 0.3s;
-      /* pointer-events: none ensures the overlay never blocks clicks */
       pointer-events: none;
     }
     .app-card:hover { transform: translateY(-4px); border-color: rgba(74,222,128,0.2); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
@@ -216,12 +215,12 @@
         <p class="app-desc">Track expenses hands-free! Say "Paid 50 rupees for coffee" and AI instantly detects the amount, category, and logs it. Beautiful charts, offline support, and smart daily reminders.</p>
         <div class="store-buttons">
           <a href="https://play.google.com/store/apps/details?id=com.benevolenceinc.dailyexpensewithvoiceai" class="store-btn android" target="_blank">▶ Google Play</a>
-          <span class="store-btn coming"> iOS – Coming Soon</span>
+          <a href="https://apps.apple.com/us/app/daily-expense-with-voice-ai/id6761296977" class="store-btn apple" target="_blank"> App Store</a>
         </div>
         <div class="app-footer">
           <span class="tag">Finance</span>
           <span class="tag blue">AI Voice</span>
-          <span class="tag">Free</span>
+          <span class="tag purple">iOS + Android</span>
         </div>
       </div>
 
